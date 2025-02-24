@@ -16,6 +16,9 @@ export const processPhotographyImage = async <I extends ImageWithoutDetails>(
   image: I,
   dir: string,
 ): Promise<I & PhotographDetails> => {
+  if (!image) {
+    console.log(dir);
+  }
   const url = `https://static.duvallj.pw/photography/${dir}/${image.imgfile}`;
   const { width: remoteWidth, height: remoteHeight } =
     await inferRemoteSize(url);

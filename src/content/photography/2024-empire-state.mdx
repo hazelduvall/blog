@@ -45,7 +45,7 @@ stumbled across an exhibit about American photographer Joel Meyerowitz.
 It was a cool exhibit! Big inspiration while I was there, and I think also
 in Dylan Vitone's class. One small series in particular caught my eye:
 
-<Photograph {...frontmatter.images[0].images[0]} />
+<Photograph image={frontmatter.images[0].images[0]} dir={frontmatter.dir} />
 
 Hey I know that place! I live there!! Energized on the ride home, I traced
 back the exact locations of each of the shots and made plans to take photos
@@ -82,15 +82,24 @@ despite everything, I still do :)
     <tr>
       <td>Missing :(</td>
       <td>
-        <Photograph {...frontmatter.images[0].images[1]} />
+        <Photograph
+          image={frontmatter.images[0].images[1]}
+          dir={frontmatter.dir}
+        />
       </td>
     </tr>
     <tr>
       <td>
-        <Photograph {...frontmatter.images[0].images[2]} />
+        <Photograph
+          image={frontmatter.images[0].images[2]}
+          dir={frontmatter.dir}
+        />
       </td>
       <td>
-        <Photograph {...frontmatter.images[0].images[3]} />
+        <Photograph
+          image={frontmatter.images[0].images[3]}
+          dir={frontmatter.dir}
+        />
       </td>
     </tr>
   </tbody>

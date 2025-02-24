@@ -1,0 +1,64 @@
+---
+import { getPhotography } from "../data/photography";
+import PageLayout from "../layouts/Page.astro";
+
+const title = "Photography";
+const description =
+  "Photos I've taken over the years! Hopefully you have as much fun looking at them as I had fun taking them!";
+
+const pages = await getPhotography();
+
+const isAssignment = (dir: string): boolean => dir.startsWith("f22");
+const regularPages = pages.filter((page) => !isAssignment(page.dir));
+const assignmentPages = pages
+  .filter((page) => isAssignment(page.dir))
+  .reverse();
+---
+
+<PageLayout frontmatter={{ title, description }}>
+  <Fragment slot="head">
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Jack Duvall's Photography"
+      href="https://blog.duvallj.pw/photography/rss.xml"
+    />
+  </Fragment>
+
+  <p>
+    Welcome to my photography page! These are some photo collections I've put
+    together, in reverse-chronological order.
+  </p>
+  {
+    regularPages.map((page) => (
+      <p>
+        <h2>
+          <a href={`/photography/${page.id}.html`} set:html={page.title} />
+        </h2>
+        <Fragment set:html={page.description} />
+      </p>
+    ))
+  }
+
+  <h2>Fall 2022: Digital Photography I</h2>
+  <p>
+    These are assignments I did for 62-142 at CMU my senior year, taught by
+    [Dylan Vitone](https://www.dylanvitone.com/). Really fun class, my peers had
+    _even better_ photos which was really cool to see.
+    <ul>
+      {
+        assignmentPages.map((page) => (
+          <li>
+            <a
+              href={`/photography/${page.id}.html`}
+              set:html={page.title.substring(
+                "Fall 2022 ".length,
+                page.title.length
+              )}
+            />
+          </li>
+        ))
+      }
+    </ul>
+  </p>
+</PageLayout>

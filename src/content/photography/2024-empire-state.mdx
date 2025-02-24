@@ -1,0 +1,97 @@
+---
+title: "2024: Empire State Building"
+description: "I attempt to recreate some photos Joel Meyerowitz took in 1978, today, in 2024. It went... just ok!"
+dir: "2024-empire-state"
+date: 1737906600
+images:
+  [
+    {
+      layout: "pair",
+      title: "",
+      caption: "",
+      images:
+        [
+          {
+            imgfile: "IMG_6654.jpg",
+            imgalt: "Joel Meyerowitz 1938. From _Empire State_ 1978. _New York City_ 1978. 4 photographs, inkjet print on platine paper.",
+          },
+          {
+            imgfile: "IMG_6833.jpg",
+            imgalt: 'The Empire State Building is partially shrouded in a small low cloud, behind an old storefront, a city-grade Newsstand, and "Swingers: The crazy golf club".',
+            maxHeight: 920,
+          },
+          {
+            imgfile: "IMG_6871.jpg",
+            imgalt: "The Empire State Building is a straight shot down the street, behind roadside trees, an old brick pizza building, an anime game ad, and a walk sign.",
+            maxHeight: 920,
+          },
+          {
+            imgfile: "IMG_6896.jpg",
+            imgalt: "A new-looking stair-steppy skyscraper reflects a blue sky against an overcast background, with a green construction lot in front of it. The Empire State Building is nowhere to be seen.",
+            maxWidth: 700,
+          },
+        ],
+    },
+  ]
+---
+
+import Photograph from "../../photography/components/Photograph.astro";
+
+When I visited [London](/photography/2024-06-london.html), I had
+the chance to go to the Tate Modern. Really cool museum, very glad I went.
+Anyways, while I was there, and already thinking about photography lots, I
+stumbled across an exhibit about American photographer Joel Meyerowitz.
+
+It was a cool exhibit! Big inspiration while I was there, and I think also
+in Dylan Vitone's class. One small series in particular caught my eye:
+
+<Photograph {...frontmatter.images[0].images[0]} />
+
+Hey I know that place! I live there!! Energized on the ride home, I traced
+back the exact locations of each of the shots and made plans to take photos
+in each location. For completeness' sake, here are those locations, read
+right-to-left:
+
+1. 7th Ave, W 44th, from inside the building
+2. Broadway, W 29th
+3. 9th Ave, W 34th
+4. 11th Ave, W 34th
+
+I was planning on scoping out the locations with my iPhone, and then taking
+"finals" with my Canon once I nailed down the exact angles and lighting I
+would need to replicate these photos _exactly_. Unfortunately, life
+gets in the way, and I got sick with Covid before that could happen, and
+then I dropped the project :(
+
+Still, I do have _some_ iPhone images! I couldn't get (1) because it's
+tricky to figure out how to get inside a locked building (do I email the property
+managers? and tell them what story??). I hope you find these cool anyways, because
+despite everything, I still do :)
+
+<style>
+  {`
+  td {
+    text-align: center;
+    vertical-align: middle;
+  }
+`}
+</style>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Missing :(</td>
+      <td>
+        <Photograph {...frontmatter.images[0].images[1]} />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <Photograph {...frontmatter.images[0].images[2]} />
+      </td>
+      <td>
+        <Photograph {...frontmatter.images[0].images[3]} />
+      </td>
+    </tr>
+  </tbody>
+</table>

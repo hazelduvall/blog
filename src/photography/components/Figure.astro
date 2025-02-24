@@ -1,0 +1,22 @@
+---
+import type { ImageDetails } from "../models/Image";
+
+type Props = ImageDetails;
+
+const { title, caption } = Astro.props;
+---
+
+<figure>
+  <h3 set:html={title} />
+  <slot />
+  <figcaption set:html={caption} />
+</figure>
+
+<style>
+  figure {
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+  }
+</style>

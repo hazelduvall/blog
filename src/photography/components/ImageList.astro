@@ -1,0 +1,26 @@
+---
+import type { ImageList as ImageListProps } from "../models/ImageList";
+import { UnreachableError } from "../../utils";
+import BasicImage from "./BasicImage.astro";
+import GridImages from "./GridImages.astro";
+import PairedImages from "./PairedImages.astro";
+
+type Props = ImageListProps;
+
+const { images, dir } = Astro.props;
+---
+
+{
+  images.map((image) => {
+    switch (image.layout) {
+      case undefined:
+        return <BasicImage image={image} dir={dir} />;
+      case "grid":
+        return <GridImages {...image} dir={dir} />;
+      case "pair":
+        return <PairedImages {...image} dir={dir} />;
+      default:
+        throw new UnreachableError(image);
+    }
+  })
+}

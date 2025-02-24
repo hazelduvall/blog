@@ -1,0 +1,16 @@
+---
+import type { BasicImage as BasicImageProps } from "../models/ImageList";
+import Figure from "./Figure.astro";
+import Photograph from "./Photograph.astro";
+
+interface Props {
+  image: BasicImageProps;
+  dir: string;
+}
+
+const { image, dir } = Astro.props;
+---
+
+<Figure {...image}>
+  <Photograph {image} {dir} />
+</Figure>

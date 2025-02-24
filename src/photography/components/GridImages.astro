@@ -1,0 +1,29 @@
+---
+import type { GridImages as GridImagesProps } from "../models/ImageList";
+import Figure from "./Figure.astro";
+import Photograph from "./Photograph.astro";
+
+interface Props extends GridImagesProps {
+  dir: string;
+}
+
+const { images: rows, dir, ...details } = Astro.props;
+---
+
+<Figure {...details}>
+  {
+    rows.map((col) =>
+      col.map((image) => (
+        <div>
+          <Photograph {image} {dir} />
+        </div>
+      ))
+    )
+  }
+</Figure>
+
+<style>
+  div {
+    display: flex;
+  }
+</style>

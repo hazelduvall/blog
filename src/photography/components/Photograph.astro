@@ -1,10 +1,16 @@
 ---
-import type { Photograph } from "./processPhotographyImage";
+import type { ImageWithoutDetails } from "../models/Image";
 import { Image } from "astro:assets";
+import { processPhotographyImage } from "./processPhotographyImage";
 
-type Props = Photograph;
+type Props = {
+  image: ImageWithoutDetails;
+  dir: string;
+};
 
-const { url, scrollX, marginY, width, height, imgtitle, imgalt, eager } = Astro.props;
+const { image, dir } = Astro.props;
+const { url, scrollX, marginY, width, height, imgtitle, imgalt, eager } =
+  await processPhotographyImage(image, dir);
 ---
 
 <a

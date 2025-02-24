@@ -14,13 +14,20 @@ const {
 ---
 
 <Default {...props}>
-  <link
-    slot="head"
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
-    integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV"
-    crossorigin="anonymous"
-  />
+  <Fragment slot="head">
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Jack Duvall's Blog"
+      href="https://blog.duvallj.pw/rss.xml"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+      integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV"
+      crossorigin="anonymous"
+    />
+  </Fragment>
 
   <article class="post type-post hentry">
     <section class="entry-header">

@@ -13,5 +13,13 @@ type Props = DefaultProps;
     title: "Main Photography Page",
   }}
 >
+  <Fragment slot="head">
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Jack Duvall's Photography"
+      href="https://blog.duvallj.pw/photography/rss.xml"
+    />
+  </Fragment>
   <slot />
 </Page>

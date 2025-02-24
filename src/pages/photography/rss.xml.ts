@@ -40,7 +40,7 @@ export async function GET(context: APIContext) {
     site: context.site
       ? new URL("/photography.html", context.site)
       : "https://blog.duvallj.pw/photography.html",
-    items: items.reverse(),
+    items,
     customData: `<language>en-us</language>`,
   });
 }

@@ -12,13 +12,13 @@ const { images: rows, dir, ...details } = Astro.props;
 
 <Figure {...details}>
   {
-    rows.map((col) =>
-      col.map((image) => (
-        <div>
+    rows.map((col) => (
+      <div>
+        {col.map((image) => (
           <Photograph {image} {dir} />
-        </div>
-      ))
-    )
+        ))}
+      </div>
+    ))
   }
 </Figure>
 

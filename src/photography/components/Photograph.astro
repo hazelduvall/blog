@@ -24,8 +24,8 @@ const { url, scrollX, marginY, width, height, imgtitle, imgalt, eager } =
     src={url}
     width={width}
     height={height}
-    title={imgtitle}
-    alt={imgalt ?? "A photograph"}
+    title={imgtitle === "alt" ? imgalt : imgtitle}
+    alt={imgalt}
     loading={eager ? "eager" : undefined}
     quality="max"
   />
@@ -34,6 +34,7 @@ const { url, scrollX, marginY, width, height, imgtitle, imgalt, eager } =
 <style>
   a {
     align-self: center;
+    border: 0;
   }
 
   .scrollX {

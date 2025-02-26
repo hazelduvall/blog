@@ -32,7 +32,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .astro-cache
-          key: blog-astro-cache-${{ hashFiles('src/**/*.png', 'src/**/*.jpg', 'package.json') }}
+          key: blog-astro-cache-${{ hashFiles('src/**/*.png', 'src/**/*.jpg', 'src/**/*.md', 'src/**/*.mdx') }}
           restore-keys: |
             blog-astro-cache-
 

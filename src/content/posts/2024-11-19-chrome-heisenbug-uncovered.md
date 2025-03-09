@@ -9,7 +9,9 @@ You know the drill. Go on hiatus because life is busy, catch COVID again even th
 The bug I have for you today is very special to me. We've been encountering it on-and-off at [Roam](https://ro.am) for a while now, since January I think? Customers would report "hey something happened and now my entire screen is shifted up", and we would say "can we see?", and they would send screenshots showing sure enough, their entire screen was shifted up. It even happened to me once, though it was less dramatic a shift than some:
 
 <figure>
-<img src="https://static.duvallj.pw/2024-11-19/screenshot-0.png" alt="the Roam map has shifted up slightly" />
+
+![the Roam map has shifted up slightly](https://static.duvallj.pw/2024-11-19/screenshot-0.png)
+
 <figcaption>Names/pfps redacted for privacy. Note the top of the window being cut off, and the bottom of the map having a misaligned border</figcaption>
 </figure>
 
@@ -175,17 +177,9 @@ inner.scrollHeight=${inner.scrollHeight} inner.clientHeight=${inner.clientHeight
 
 If the bug occurs, `outer.scrollHeight` will be `1502`, not matching any of the other values displayed, which are all `602`. Because I read the spec, I am confident in calling this a bug, even though both Chrome and Firefox seem to have the same behavior[^1]:
 
-<table>
-<tr>
-<td>Chrome</td>
-<td>Firefox</td>
-<td>Safari</td>
-</tr>
-<td><a href="https://static.duvallj.pw/2024-11-19/repro-chrome.png"><img src="https://static.duvallj.pw/2024-11-19/repro-chrome.png" alt="repros in Chrome" /></a></td>
-<td><a href="https://static.duvallj.pw/2024-11-19/repro-firefox.png"><img src="https://static.duvallj.pw/2024-11-19/repro-firefox.png" alt="repros in firefox" /></a></td>
-<td><a href="https://static.duvallj.pw/2024-11-19/repro-safari.png"><img src="https://static.duvallj.pw/2024-11-19/repro-safari.png" alt="doesn't repro in safari" /></a></td>
-</tr>
-</table>
+| Chrome                                                                     | Firefox                                                                      | Safari                                                                            |
+| -------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| ![repros in Chrome](https://static.duvallj.pw/2024-11-19/repro-chrome.png) | ![repros in Firefox](https://static.duvallj.pw/2024-11-19/repro-firefox.png) | ![doesn't repro in Safari](https://static.duvallj.pw/2024-11-19/repro-safari.png) |
 
 I am also very confident in calling it a bug because removing the `will-change: transform;` property from `#outer` causes the bug to go away on both Chrome and Firefox[^2]. Additionally, on Chrome only, doing any of the following will also cause the bug to go away:
 

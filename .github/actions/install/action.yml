@@ -3,21 +3,14 @@ name: Install Tools & Dependencies
 runs:
   using: composite
   steps:
-    - name: Use Node.js
-      uses: actions/setup-node@v4
+    - uses: pnpm/action-setup@v4
+      name: Install pnpm
+
+    - uses: actions/setup-node@v4
+      name: Install Node.js
       with:
         node-version: 20
+        cache: "pnpm"
 
-    - name: Restore node_modules
-      uses: actions/cache@v4
-      id: cache
-      with:
-        path: node_modules
-        key: npm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-        restore-keys: |
-          npm-${{ runner.os }}-
-
-    - name: Install node_modules
-      run: npm ci
-      if: steps.cache.outputs.cache-hit != 'true'
-      shell: bash
+    - run: pnpm install
+      name: Install dependencies

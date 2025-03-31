@@ -23,11 +23,11 @@ jobs:
         uses: ./.github/actions/install
 
       - name: generate astro types
-        run: npx astro sync
+        run: pnpm astro sync
         shell: bash
 
       - name: Run Check
-        run: npm run check
+        run: pnpm check
   eslint:
     name: Check for code issues with ESLint
     runs-on: ubuntu-latest
@@ -43,4 +43,4 @@ jobs:
         shell: bash
 
       - name: Run Check
-        run: npm run lint:eslint
+        run: pnpm lint:eslint

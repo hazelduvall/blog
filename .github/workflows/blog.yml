@@ -37,7 +37,7 @@ jobs:
             blog-astro-cache-
 
       - name: Build Astro
-        run: npm run build
+        run: pnpm build
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4

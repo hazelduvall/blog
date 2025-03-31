@@ -5,11 +5,11 @@
   "scripts": {
     "astro": "astro",
     "build": "astro build",
-    "check": "npm run check:tsc && npm run check:astro",
+    "check": "pnpm check:tsc && pnpm check:astro",
     "check:astro": "astro check",
     "check:tsc": "tsc --noEmit",
     "dev": "astro dev",
-    "lint": "npm run lint:eslint",
+    "lint": "pnpm lint:eslint",
     "lint:eslint": "eslint .",
     "preview": "astro preview",
     "sync:main": "aws s3 sync --delete ./main-site s3://duvallj.pw/",

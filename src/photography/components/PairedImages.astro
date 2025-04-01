@@ -11,6 +11,14 @@ const { images, dir, ...details } = Astro.props;
 ---
 
 <Figure {...details}>
-  <!-- TODO: style this correctly -->
-  {images.map((image) => <Photograph {image} {dir} />)}
+  <div>
+    {images.map((image) => <Photograph {image} {dir} />)}
+  </div>
 </Figure>
+
+<style>
+  div {
+    display: flex;
+    align-items: stretch;
+  }
+</style>

@@ -1,6 +1,6 @@
 ---
 title: OpenSSH and Kerberos
-tags: daily thoughts, projects
+tags: daily thoughts, Windows
 ---
 
 Recently, with the extra free time provided by being off the internship & not

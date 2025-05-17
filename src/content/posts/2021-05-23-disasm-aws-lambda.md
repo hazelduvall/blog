@@ -1,6 +1,6 @@
 ---
 title: disasm.duvallj.pw is on AWS Lambda!
-tags: projects, AWS, Web
+tags: AWS, Web
 ---
 
 ## 2023 Update: This Site Is No Longer Online

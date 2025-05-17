@@ -1,7 +1,7 @@
 ---
 title: "A Third Browser Bug..."
 description: "I found yet another weird edgecase in some JavaScript + CSS APIs when doing something for a work project. Great. At least this time it's not just Chrome, but all browsers that are buggy though??"
-tags: daily thoughts, Web
+tags: programming, Web
 ---
 
 TL;DR: [hey check out this weird CodePen I made](https://codepen.io/jack_at_roam/pen/eYwNEEJ)

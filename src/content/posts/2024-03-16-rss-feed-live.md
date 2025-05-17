@@ -1,7 +1,7 @@
 ---
 title: "RSS Feed Is Live"
 description: "I announce that my blog now has an RSS Feed! Again. After the one that came with Hakyll was removed and I had to add back in one for Astro."
-tags: daily thoughts, Web
+tags: Web, RSS, Astro
 ---
 
 My blog now has an [RSS Feed](https://blog.duvallj.pw/rss.xml)!. Again. After the one that came with Hakyll got removed in [the upgrade to Astro](/posts/2023-10-22-new-blog-framework.html), and I had to update to [@astrojs/rss](https://docs.astro.build/en/guides/rss/). I also:

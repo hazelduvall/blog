@@ -1,7 +1,7 @@
 ---
 title: Tracking Down a "Heisenbug" in Chrome
 description: I recount a long and arduous struggle to figure out a Chrome bug that I finally have a reproduction for
-tags: daily thoughts, Web, Chrome
+tags: programming, Web, Chrome
 ---
 
 You know the drill. Go on hiatus because life is busy, catch COVID again even tho I wear a mask, and uncover yet another browser bug while still somewhat sick (getting better tho!).

@@ -1,7 +1,7 @@
 ---
 title: I'm A Maintainer Now??
 description: Recollections on how I got myself into the position of maintaining a fairly large (if not that popular nor crucial) open-source library, node-webrtc, while getting paid for it.
-tags: daily thoughts, WebRTC
+tags: WebRTC
 ---
 
 Recently, some code I hacked on for work made its way onto [Hacker

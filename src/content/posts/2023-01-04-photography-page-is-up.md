@@ -1,7 +1,7 @@
 ---
 title: Photography Page Is Up!
 description: In which I provide a link to my new showcase of photos that I took this last fall semester in school for a class, Digital Photography I, taught by Dylan Vitone.
-tags: projects, Photography
+tags: Photography
 ---
 
 Hello 2023 I have some big news!! It took a bit longer than I thought but I finally finished the section of my website dedicated to photography.

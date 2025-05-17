@@ -1,7 +1,7 @@
 ---
 title: I'm In New York!
-tags: daily thoughts
 description: In which I detail the location of my internship this summer, recount the trip there, and offer some first thoughts on the city.
+tags: daily thoughts
 ---
 
 ## How Did I Get Here

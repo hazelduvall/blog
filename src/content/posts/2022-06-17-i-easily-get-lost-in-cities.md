@@ -1,7 +1,7 @@
 ---
 title: I Easily Get Lost In Cities
-tags: daily thoughts
 description: In which I detail my many misadventures getting lost in cities, both physically and metaphorically (mostly physically tbh).
+tags: daily thoughts
 ---
 
 Whoops, forgot to actually push to the site, in case you couldn't've guessed I

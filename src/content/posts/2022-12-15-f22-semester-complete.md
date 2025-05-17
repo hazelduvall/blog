@@ -1,6 +1,6 @@
 ---
 title: Fall 2022 Semester Is Over
-tags: daily thoughts, CMU
+tags: class review, CMU
 ---
 
 So. That's it huh. Final final project turned in, gearing up for going back to see family over break, I made it through.

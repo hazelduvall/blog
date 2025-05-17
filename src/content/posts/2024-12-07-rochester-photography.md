@@ -1,7 +1,7 @@
 ---
 title: "Rochester Photography"
 description: "I announce another new photography page, this time for pictures from Rochester!"
-tags: daily thoughts, Photography
+tags: Photography
 ---
 
 Figured I'd keep my photography-posting "streak" up, if you can call it that :P

@@ -1,7 +1,7 @@
 ---
 title: WebRTC Perfect Negotiation
 description: An addendum to the seminal Firefox blog post about Perfect Negotiation in WebRTC
-tags: daily thoughts, WebRTC, Web
+tags: programming, Web, WebRTC
 ---
 
 As part of my job, I have been working pretty closely with

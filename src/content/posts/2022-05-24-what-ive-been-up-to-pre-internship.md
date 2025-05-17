@@ -1,7 +1,7 @@
 ---
 title: What I've Been Up To Pre-Internship
-tags: daily thoughts
 description: In which I detail some half-finished projects I'm moderately proud of and just generally give life updates
+tags: daily thoughts
 ---
 
 It's been _very_ nice to relax after that semester, I needed it.

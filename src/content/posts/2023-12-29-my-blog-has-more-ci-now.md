@@ -1,7 +1,7 @@
 ---
 title: My Blog Has More CI Now
 description: A quick update on what I've done with my blog's Continuous Integration system, and why I think it's pretty cool
-tags: daily thoughts, Web
+tags: Web, Astro
 ---
 
 At work, I've seen my coworker set up this new cool tool called

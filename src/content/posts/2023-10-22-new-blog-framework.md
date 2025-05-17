@@ -1,7 +1,7 @@
 ---
 title: "New Blog Framework: Astro"
 description: "I explain the new static site generator I'm using for my blog, Astro, and why I'm using it over my old one, Hakyll."
-tags: daily thoughts, Astro, Web
+tags: Web, Astro
 ---
 
 [I was fed up with Hakyll](/posts/2022-12-29-i-dont-actually-like-hakyll-that-much.html), so I've switched my site to use a new blogging framework, [Astro](https://astro.build/).

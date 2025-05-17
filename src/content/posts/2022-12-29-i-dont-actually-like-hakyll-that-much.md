@@ -1,7 +1,7 @@
 ---
 title: I Don't Actually Like Hakyll That Much
 description: In which I detail some problems I've been having with the static site generator Hakyll, written in Haskell, that I've been using to generate this site for quite some time now.
-tags: daily thoughts, Hakyll, Web
+tags: Web, Hakyll
 ---
 
 Yeah, you heard me right. The static site generator I tried out on a whim so long ago and [struggled against for a while](/tags/Hakyll.html) isn't serving me that well. Let's go over why I'm fed up with it and how we can do better.

@@ -1,7 +1,7 @@
 ---
 title: Wow, What A Year
 description: In which I recap some highlights from 2021 and overall enjoy winter break
-tags: daily thoughts, CMU
+tags: class review, CMU
 ---
 
 2021 was a year mainly full of one thing: COVID. From stunting last spring

@@ -1,7 +1,7 @@
 ---
 title: Remember to Munge Your Headers!
 description: A writeup of a bug I encountered while working on some WebRTC code for Roam. Contains my debugging process and a solution to a probably-not-too-common problem.
-tags: daily thoughts, WebRTC, Web
+tags: programming, Web, WebRTC
 ---
 
 So for work, I've been hacking on the Selective Forwarding Unit

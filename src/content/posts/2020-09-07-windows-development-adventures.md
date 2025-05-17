@@ -1,6 +1,6 @@
 ---
 title: Windows Development Adventures
-tags: daily thoughts
+tags: daily thoughts, Windows
 ---
 
 So one reason I've not updated this blog in a while has been school. Yeah I've been pretty

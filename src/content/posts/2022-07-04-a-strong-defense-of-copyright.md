@@ -1,7 +1,7 @@
 ---
 title: A Strong Defense of Copyright
-tags: daily thoughts, Writing
 description: In which a friend and I have a discussion about how modern copyright has been affected by various forms of piracy and I become slowly convinced it may actually be bad
+tags: Writing
 ---
 
 First this I want to note is this is <i>not</i> just my writing: this is a discussion my friend and I have a discussion about how modern copyright has been affected by various forms of piracy. I thought it was really interesting and got permission to post it here under a pseudonym, Corporate Shill (CS). I've distinguished between their words (in green, the color of Money) and mine (in an innocent blue).

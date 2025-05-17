@@ -1,7 +1,7 @@
 ---
 title: Deep Learning Research Project
 description: My group's final paper for CMU's 10-417 Fall 2021 research project. We used seq2seq transformers to explore title generation from abstracts.
-tags: AI, projects, CMU
+tags: projects, AI, CMU
 ---
 
 This semester, my group and I at CMU did some simple research for 10-417,

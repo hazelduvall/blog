@@ -1,7 +1,7 @@
 ---
 title: I Was An OS TA
 description: In the Spring 2023 Semester at CMU, I was a TA for Operating Systems Design and Implementation (15-410). In this post, I reminisce about the experience and what I learned from it.
-tags: daily thoughts, CMU
+tags: class review, CMU
 ---
 
 Wow. I actually made it. Since early-ish at CMU, I had known that an "OS TA"

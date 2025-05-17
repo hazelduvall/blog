@@ -1,7 +1,7 @@
 ---
 title: All Javascript Keyboard Shortcut Libraries Are Broken
 description: Either subtly, or not-so-subtly. There is no way to fix the more subtle variant, and the only solution is to Give Up (on supporting a large subset of keyboard shortcuts).
-tags: daily thoughts, Web
+tags: programming, Web
 ---
 
 Either subtly (by using `key`), or not-so-subtly (by using `code`). There is no way to fix the more subtle variant, and the only solution is to Give Up (on supporting a large subset of keyboard shortcuts).

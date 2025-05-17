@@ -1,7 +1,7 @@
 ---
 title: "You Won't Believe That I Found Another Chrome Rendering Bug"
 description: "Another foray into debugging a Chrome rendering bug, this time with extra platform-specific goodness!"
-tags: daily thoughts, Chrome, Web
+tags: programming, Web, Chrome
 ---
 
 EDIT: As of 2024-10-15, when Chrome 130 was released, this bug is now [fixed](https://issuetracker.google.com/issues/325133349)! Yahoo!!

@@ -1,7 +1,7 @@
 ---
 title: Better Static File Handling
 description: In which I recount how I made my website redeploys Slightly Faster by serving images from a dedicated static domain, instead of including them inside my git repository.
-tags: daily thoughts, Astro, Web
+tags: Web, Astro
 ---
 
 For a while now, I've had a [photography](/photography.html) page on my blog. When I made it, I wasn't thinking too hard and just followed along with the Astro Image guide which said "put ur images somewhere in `src/` and `import` them". One thing led to another, and I ended up with ~800MiB of data in my git repository. :P

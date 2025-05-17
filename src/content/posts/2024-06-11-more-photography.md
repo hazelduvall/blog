@@ -1,7 +1,7 @@
 ---
 title: "More Photography!"
 description: "In which I reveal I have not one, but two whole new sets of photos available for display now, on this very website."
-tags: daily thoughts, Photography
+tags: Photography
 ---
 
 I haven't been active on this blog much, but I _have_ been very active at work! One consequence of that is I've gone on a few work trips, and the inspiration from those trips compelled me to start taking artsy photos again, so here I am! My [photography page](/photography.html) has been updated with these trips, to [Chicago](/photography/2024-05-chicago.html) and [London](/photography/2024-06-london.html) respectively. I'm fairly proud of myself for getting back into it at all, and with a borrowed camera from my dad (thanks, Dad!) I can hopefully keep this hobby up even longer.

@@ -1,7 +1,7 @@
 ---
 title: The OS Semester
 description: In which I recap how the Spring 2022 semester went for me, focusing on all the cool stuff that happened, particularly in the Operating Systems class at CMU
-tags: daily thoughts, CMU
+tags: class review, CMU
 ---
 
 Wowza, that was quite the semester. A list of the classes I took, also the order

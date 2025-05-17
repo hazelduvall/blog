@@ -6,7 +6,7 @@ tags: WebRTC, C++, Nix
 
 Wow!! I can't believe it's been over 1.5 years since I [became the maintainer of node-webrtc](https://blog.duvallj.pw/posts/2023-10-11-im-a-maintainer-now.html). Feels a lot longer than that somehow :) Finally at a point where it feels like "my" codebase that I know every square inch of.
 
-This release has been a long time coming, and contains a few major improvements over the previous v0.8.0 release:
+[This release](https://www.npmjs.com/package/@roamhq/wrtc/v/0.9.0) has been a long time coming, and contains a few major improvements over the previous v0.8.0 release:
 
 ### No More Compiler Warnings
 

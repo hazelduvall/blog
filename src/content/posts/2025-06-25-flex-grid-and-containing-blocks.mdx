@@ -1,0 +1,257 @@
+---
+title: CSS Flex, Grid, and Containing Blocks
+description: A quick dive into the intricacies of how some intuitive-seeming CSS features _actually_ work, in order to build a better mental model when building designs that use them.
+tags: programming, Web
+---
+
+import RawSnippet from "../../components/RawSnippet.astro";
+
+**TL;DR**: Changing from `display: flex;` to `display: grid;` can break certain designs due to differences in how containing blocks work between them. If you read that and went "what does that even mean??", keep reading.
+
+## The Bug
+
+This toy example is based on a real bug that completely slipped under my radar in code review, so I am highly motivated to write this blog post & understand in meticulous detail _exactly_ what's going on with it:
+
+<RawSnippet>
+  <style>
+    {`
+  .Container {
+    border: solid black 2px;
+    padding: 8px;
+    contain: strict;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+  }
+  .ChatContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .Chats {
+    background: lightgray;
+    flex: 1 1 200px;
+    min-height: 1lh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .Composer {
+    border: dashed grey 1px;
+    padding: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+`}
+  </style>
+  <div class="Container">
+    <div class="ChatContainer">
+      <div class="Chats">
+        There's a bunch of text here
+        <br />
+        Just so that it scrolls
+        <br />
+        Mostly line breaks perhaps
+        <br />
+        yeah
+        <br />
+        line breaks
+        <br />
+        :)
+      </div>
+      <div class="Composer" contenteditable>
+        You can type in this box, try it out!
+      </div>
+    </div>
+  </div>
+</RawSnippet>
+<br />
+
+It's been simplified a lot, but it's representative of the situation we found ourselves in: some editable text below some static text, where both texts are scrollable, and the amount of editable text changes how much room the static text is given. There's nothing[^1] wrong with it yet, just setting the scene/giving a baseline.
+
+Next, let's add a sidebar, changing `.Container` from `display: flex;` to `display: grid;` so as to not add another nested div:
+
+<RawSnippet>
+  <style>
+    {`
+  .Container.v2 {
+    display: grid;
+    grid-template-columns: 1fr 100px;
+    gap: 8px;
+  }
+  .Sidebar {
+    background: orange;
+  }
+`}
+  </style>
+</RawSnippet>
+
+<div class="Container v2">
+  <div class="ChatContainer">
+    <div class="Chats">
+      There's a bunch of text here
+      <br />
+      Just so that it scrolls
+      <br />
+      Mostly line breaks perhaps
+      <br />
+      yeah
+      <br />
+      line breaks
+      <br />
+      :)
+    </div>
+    <div class="Composer" contenteditable>
+      You can type in this box, try it out!
+    </div>
+  </div>
+  <div class="Sidebar"></div>
+</div>
+<br />
+
+Uh-oh, big trouble!! There's some bad overflow going on here, and we can no longer see `.Composer`! Why is this? We set `width: 100%; height: 100%;` on `.ChatContainer` after all, so it should be the exact same size as its parent `.Container`, right??
+
+## Time To Do Some Reading
+
+Wait a minute... `width: 100%;`... so why can we still see `.Sidebar`?. Checking the [MDN documentation for `width`](https://developer.mozilla.org/en-US/docs/Web/CSS/width):
+
+> `<percentage>`: Defines the width as a percentage of the containing block's width
+
+OK, and a [containing block](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_display/Containing_block)?
+
+> Many developers believe that the containing block of an element is always the content area of its parent, but that isn't necessarily true.
+>
+> [...]
+>
+> 1. If the `position` property is `static`, `relative`, or `sticky`, the containing block is formed by the edge of the _content box_ of the nearest ancestor element that is either a block container (such as an inline-block, block, or list-item element) or establishes a formatting context (such as a table container, flex container, grid container, or the block container itself).
+
+Well, we have a `flex`/`grid` container, so looks like it's spec-reading time for us. Er, more like spec-Ctrl-F-ing for "containing block", but hey :P
+
+From the [CSS Flexible Box Layout Module Level 1](https://drafts.csswg.org/css-flexbox/), Paragraph 3:
+
+> Flex containers form a containing block for their contents exactly like block containers do.
+
+![flex containing block diagram](https://static.duvallj.pw/2025-06-20/flex-containing-block.png)
+
+The containing block for the `display: flex;` is _exactly_ the area of its content element, a.k.a. "the normal thing". So, doing `width: 100%; height: 100%` in a child element was doing what we expected: setting our width/height to exactly that of a parent.
+
+Next, reading from [CSS Grid Layout Module Level 2](https://drafts.csswg.org/css-grid/), Paragraph 3.3:
+
+> A grid item's grid area forms the containing block into which it is laid out.
+
+![grid containing block diagram](https://static.duvallj.pw/2025-06-20/grid-containing-blocks.png)
+
+Aha! As we observed before, there's no longer one big containing block that spans the full width of the div, but rather individual containing blocks created for each grid item. Once we get into layouts that span multiple rows/columns, I can definitely see why this was done: it makes laying out the item within the grid area a lot easier; knowing the width/height of the area is much more important than knowing the width/height of the parent grid.
+
+But for now, I mostly just care about one thing: why the `height` do that??
+
+## Synthesis
+
+Let's recap what we know:
+
+1. `.ChatContainer` has `height: 100%;`, meaning it will be as tall as its containing block.
+2. Because it's a grid item, `.ChatContainer`'s containing block will be its grid area.
+
+### Solving This The Correct Way
+
+If not specified, the default values for grid rows are:
+
+```css
+.Container.v2 {
+  grid-template-rows: none;
+  grid-auto-rows: auto;
+}
+```
+
+Meaning, all the rows are automatically inserted and have height `auto`. _Meaning_, the containing block will try to resolve its height based on the content. _**Meaning**_, our `height: 100%` now does nothing, effectively the same as if it were `height: auto` itself. Whoops![^2]
+
+To fix this, we just need to force the grid rows to have a specified height. At the level of [`grid-template-rows`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-rows):
+
+> `<percentage>`: Is a non-negative `<percentage>` value, relative to the block size of the grid container.
+
+So a row of height `100%` will make the grid area's containing block be the correct size, making our `height: 100%` propagate thru as intended, and the design will be fixed:
+
+<RawSnippet>
+  <style>
+    {`
+  .Container.v3 {
+    display: grid;
+    grid-template-columns: 1fr 100px;
+    grid-template-rows: 100%;
+    gap: 8px;
+  }
+`}
+  </style>
+</RawSnippet>
+
+<div class="Container v3">
+  <div class="ChatContainer">
+    <div class="Chats">
+      There's a bunch of text here
+      <br />
+      Just so that it scrolls
+      <br />
+      Mostly line breaks perhaps
+      <br />
+      yeah
+      <br />
+      line breaks
+      <br />
+      :)
+    </div>
+    <div class="Composer" contenteditable>
+      You can type in this box, try it out!
+    </div>
+  </div>
+  <div class="Sidebar"></div>
+</div>
+
+### Solving This The Cool Way
+
+I do love the [`contain`](https://developer.mozilla.org/en-US/docs/Web/CSS/contain) property, so I couldn't resist showing off a solution that uses it too :)
+
+Thinking a bit, the problem isn't necessarily that `.ChatContainer` gets `height: auto;`, the problem is what happens after, when the content inside forces `.ChatContainer` to become taller than its parent to contain all that content. But what if there were a way to say "only size yourself based on elements above you, ignoring input from all those below you"? Turns out that's exactly what `contain: size;` does!!
+
+<RawSnippet>
+  <style>
+    {`
+  .ChatContainer.v4 {
+    width: auto;
+    height: auto;
+    contain: size;
+  }
+`}
+  </style>
+  <div class="Container v2">
+    <div class="ChatContainer v4">
+      <div class="Chats">
+        There's a bunch of text here
+        <br />
+        Just so that it scrolls
+        <br />
+        Mostly line breaks perhaps
+        <br />
+        yeah
+        <br />
+        line breaks
+        <br />
+        :)
+      </div>
+      <div class="Composer" contenteditable>
+        You can type in this box, try it out!
+      </div>
+    </div>
+    <div class="Sidebar"></div>
+  </div>
+</RawSnippet>
+<br />
+
+This approach is likely a little more brittle than the explicit grid approach, but I think it's cooler, and that's what matters 😎
+
+OK that's it, hope you enjoyed & learned something today ^w^
+
+[^1]: OK that's a lie, I would definitely not recommend using anything like this in production, but it works well enough for demonstration purposes here :)
+
+[^2]: This is often a big problem with `height: 100%` bounds in general: if you introduce _any_ layer of `height: auto` indirection in between, they tend to break like this. Switching from `display: flex;` to `display: grid;` is just an extreme example of this I guess :P

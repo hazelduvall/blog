@@ -1,7 +1,7 @@
 ---
 title: The AIs Seem To Like One Of My Posts; Why Is That?
 description: Musings on why exactly one of my blog posts has steadily gotten hits to it from many different AI sources over the past few months.
-tags: daily thoughts
+tags: daily thoughts, AI
 ---
 
 One of my past posts, ["A Safari aspect-ratio CSS Bug"](https://blog.duvallj.pw/posts/2024-09-14-safari-css-bug.html), has had very steadily growing traffic to it for a few months now. Mostly from Google, as a given, but ChatGPT, Claude, & Perplexity are all in there as referring domains too.

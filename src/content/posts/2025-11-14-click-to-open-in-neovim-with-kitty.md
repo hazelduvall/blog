@@ -9,11 +9,7 @@ Recently, I saw my coworker using VSCode, and they had this amazing feature wher
 + Click on a filename it outputted
 + To immediately open it in a new tab in the editor pane
 
-This, to me, was magical. However, I thought it out-of-reach for a lowly terminal user like myself, until I saw what [jyn was able to do with their terminal](https://jyn.dev/how-i-use-my-terminal/). This inspired me to create my own customized setup, which I shall now demonstrate:
-
-TODO: video
-
-And explain in excruciating detail:
+This, to me, was magical. However, I thought it out-of-reach for a lowly terminal user like myself, until I saw what [jyn was able to do with their terminal](https://jyn.dev/how-i-use-my-terminal/). This inspired me to create my own customized setup, which I shall now explain in excruciating detail.
 
 ## The Basics
 

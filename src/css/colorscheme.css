@@ -13,6 +13,7 @@
   --color-cyan: rgb(85, 195, 220);
   --color-blue: rgb(3, 102, 214);
   --color-orange: rgb(235, 133, 34);
+  --color-dark-orange: rgb(158, 79, 0);
   --color-light-orange: rgb(255, 183, 113);
   --color-green: rgb(103, 171, 107);
 }
@@ -23,7 +24,7 @@ body {
 }
 
 /* Sidebar Background Color */
-body:before,
+.sidebar,
 .site-header {
   background-color: var(--color-cyan);
 }
@@ -82,18 +83,6 @@ nav a {
 }
 
 /* Secondary Text Color */
-button:hover,
-button:focus,
-input[type="button"]:hover,
-input[type="button"]:focus,
-input[type="reset"]:hover,
-input[type="reset"]:focus,
-input[type="submit"]:hover,
-input[type="submit"]:focus {
-  background-color: var(--color-grey700);
-}
-
-/* Secondary Text Color */
 blockquote,
 a:hover,
 a:focus,
@@ -118,7 +107,6 @@ input,
 textarea,
 .post-navigation,
 .post-navigation div + div,
-.site-header,
 .site-footer {
   border-color: var(--color-grey100);
 }
@@ -140,33 +128,17 @@ ins {
   background-color: var(--color-cyan);
 }
 
-/* Border Focus Color */
-a:focus,
-button:focus,
-input:focus {
-  outline-color: var(--color-grey300);
+/* inline code color */
+code {
+  color: var(--color-dark-orange);
+  background-color: var(--color-grey100);
+  padding: 0 0.1em;
 }
 
-input:focus,
-textarea:focus {
-  border-color: var(--color-grey300);
-}
-
-/* Placeholder text color -- selectors need to be separate to work. */
-::-webkit-input-placeholder {
-  color: var(--color-grey700);
-}
-
-:-moz-placeholder {
-  color: var(--color-grey700);
-}
-
-::-moz-placeholder {
-  color: var(--color-grey700);
-}
-
-:-ms-input-placeholder {
-  color: var(--color-grey700);
+pre code {
+  color: inherit;
+  background-color: inherit;
+  padding: initial;
 }
 
 /* Sidebar Link Color */
@@ -183,7 +155,7 @@ textarea:focus {
 
 /* Sidebar Border Focus Color */
 .branding-title a {
-  outline-color: var(--color-white300);
+  outline-color: var(--color-white);
 }
 
 @media screen and (min-width: 59.6875em) {
@@ -193,6 +165,6 @@ textarea:focus {
   }
 
   .sidebar a:focus {
-    outline-color: var(--color-white100);
+    outline-color: var(--color-white);
   }
 }

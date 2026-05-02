@@ -1,0 +1,34 @@
+---
+import PageList from "../../components/PageList.astro";
+import { getPostsByYear } from "../../data/years";
+import Page from "../../layouts/Page.astro";
+import type { Page as PageType } from "../../models/Page";
+
+const title = "Archives";
+const description =
+  "A list of all the years I've blogged, and a link to posts from each of those years";
+
+const postsByYear = await getPostsByYear();
+const pages = [...postsByYear.keys()]
+  .sort()
+  .map((year) => {
+    const page: PageType = {
+      url: `/blog/archive/${year}.html`,
+      title: `${year}`,
+    };
+    return page;
+  })
+  .reverse();
+---
+
+<Page frontmatter={{ title, description }}>
+  <p>Here are all the years I've blogged. Is this a lot? maybe.</p>
+
+  <PageList {pages} />
+
+  <p>
+  If you would like to look at posts by tags, go to <a href="/blog/tags.html"
+      >Tags</a
+    >.
+  </p>
+</Page>

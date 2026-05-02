@@ -1,0 +1,63 @@
+==================================================================
+https://keybase.io/duvallj
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://duvallj.pw
+  * I am duvallj (https://keybase.io/duvallj) on keybase.
+  * I have a public key with fingerprint EBE3 1254 2913 13ED F636  EABD FD05 A99F 70E1 1774
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "01164fb32b4ef95bf2114c4f4ce4c3fe38c855cca37958696155d0c8f132de14a31f0a",
+      "fingerprint": "ebe31254291313edf636eabdfd05a99f70e11774",
+      "host": "keybase.io",
+      "key_id": "fd05a99f70e11774",
+      "kid": "01164fb32b4ef95bf2114c4f4ce4c3fe38c855cca37958696155d0c8f132de14a31f0a",
+      "uid": "bd12f63fce5af187f85956dc9c347319",
+      "username": "duvallj"
+    },
+    "service": {
+      "hostname": "duvallj.pw",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "ctime": 1685033592,
+  "expire_in": 157680000,
+  "prev": "5b20a80e831a5fb445d71482566e93351fe93cbb6f7e4357165ecf35fbfd2b7b",
+  "seqno": 10,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+
+owGtkr9rFEEUx/c0gRgQxOBZCTqVkiPu7Pzcw0ZBRFFsxEbkmB9vLps7d9fdvYsx
+RghYCGk0/4BWgoUg9op2igo2loKSQvQwVRAUBGcPUwiWTvOYL9/vZ957zJ3dO4Op
+5q/Jh/fyT/urxusvOrDZ+uoy0pldQu1l1INxgb6Fsur0EovaKMSYU6dJpCm4mGkX
+YUwNddQANcQBkUYyZowiImaSxxwzZkMjHSaRBUwVwS5UqIVcknahyIskrTwWNBAc
+MRrFmGAC1nHCQWnrbMhUHDsRAsZCUB+cz8o64ZvTqoS5JPOav3TG7f3D/5/7Hoxx
+2uLI9+gMMOWwFE6ymHFrYkOoIDiujSUUqboC3m0HQ9XvL6CVFvLiMDFQ77Ue5G/D
+XL7og3mRVZnJ+l6fr6q8bNe5aimvjYugO38QHZ2k1i/RJ4ZQlEmWojb2TlMlNRNz
+yUJCWBy1EFzLkwI6Se1ggsvQn/odGHok01GoZAiSXMSKOU0pswJTGTHOIfYE7Hwx
+WnMngBImMGdgHPFWZyMtNKqnuppmHu6plep6aJl0U1UNCkAr07cHE0FzKjjQPDQx
+2th74cjMzLfv/OvT7Y83uaP+dcH0rj3byrHZRvDhfhMNXm0uPOrfOHz++q2hlh8f
+qNkn+7bWRr3NrbNZI/hx6sTxjbX1Z28ujd59fs9evL158ujPg4+fn1u9e/nl6TON
+3w==
+=9Y04
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/duvallj
+
+==================================================================
+

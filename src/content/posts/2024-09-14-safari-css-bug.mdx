@@ -1,0 +1,183 @@
+---
+title: A Safari aspect-ratio CSS Bug
+description: "Now for something definitely completely new and different: a Safari bug! So long, Chrome CSS bugs! /s"
+tags: programming, Web, Safari
+---
+
+import RawSnippet from "../../components/RawSnippet.astro";
+
+Wow it's been a hot minute, huh? I did catch COVID again recently, but that was
+only for a week, and really the reason I've not been posting is because I feel
+broadcasting all my hot takes about how terrible Go is (from more experience
+working on a Go service that I've had to redo many of the abstractions for)
+isn't really productive. But you know what is productive? That's right, more CSS
+bugs! And this time we have something special: a Safari bug! Sort of surprising
+that I haven't shown off more of these, Safari is a pretty busted browser when
+you get right down to it. There's another bug (related to this one) with an
+inconsistent repro that I won't spoil just yet, so for now here's just a taste
+for how weird it can get:
+
+---
+
+## Problem Statement
+
+Consider the following problem: you have an arbitrarily-sized parent container,
+and you want to make a child container with a fixed aspect ratio that fits flush
+with the bounds of the parent[^1]. Seems simple enough, no?
+
+## Solution 1: Simple Boundaries
+
+<RawSnippet>
+  <style>
+    {`
+  .container {
+    background-color: #888;
+  }
+  .take1.container {
+    display: flex;
+    align-items: center;
+  }
+  .layer1 {
+    background-color: var(--color-orange);
+  }
+  .take1 .layer1 {
+    width: 100%;
+    max-height: 100%;
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+  }
+  .layer2 {
+    background-color: var(--color-blue);
+  }
+  .take1 .layer2 {
+    height: 100%;
+    aspect-ratio: 1;
+  }
+`}
+  </style>
+  <div>
+    <label for="w1">Width:</label>
+    <input id="w1" type="range" min="120" max="600" value="200"></input>
+    <label for="h1">Height:</label>
+    <input id="h1" type="range" min="120" max="600" value="200"></input>
+  </div>
+  <div id="c1" class="container take1">
+    <div class="layer1">
+      <div class="layer2"></div>
+    </div>
+  </div>
+  <script>{`
+  const register = (inputId, divId, what) => {
+    const input = document.querySelector(inputId);
+    const div = document.querySelector(divId);
+    const set = () => {
+      div.style[what] = input.value + "px";
+    }
+    set();
+    input.addEventListener("change", set);
+  }
+  register("#w1", "#c1", "width");
+  register("#h1", "#c1", "height");
+`}</script>
+</RawSnippet>
+
+Simple! Play around with the sliders to get a feel for how this works; there's
+an blue box inside an orange box inside a gray parent container. How this works
+is:
+
+1. Layer 1 (orange) sets:
+   1. `width: 100%` (be as wide as the parent)
+   2. `aspect-ratio: 1` (make the implicit `height: auto` match the width)
+   3. `max-height: 100%` (clip `height` to that of its parent)
+
+That gives us an orange box that can be at most as tall as it is wide. Then:
+
+2. Layer 2 (blue) sets:
+   1. `height: 100%` (be as tall as the parent)
+   1. `aspect-ratio: 1` (make the implicit `width: auto` match the height)
+
+Because Layer 1 has `height <= width`, Layer 2 will be a perfect square, every time!
+
+...except in Safari
+
+## Safari's Problem
+
+From what I understand, the problem happens at Layer 1. Instead of doing the
+procedure outlined above, it instead seems to do something like this:
+
+1. Layer 1 (orange) sets:
+   1. `width: 100%` (be as wide as parent)
+   1. `max-height: 100%` (clip `height: auto` to that of parent)
+   1. `aspect-ratio: 1` (make height match width)
+
+Step 2 doesn't do anything, because the default `height: auto` for a container
+is `0`. It works if you swap around the width/height constraints between the two
+layers, (because `width: auto` is `100%` so does get clipped properly), but this
+feels like a hack, and besides there's a different solution that only uses one
+layer.
+
+## Solution 2: Good ol' `margin: auto`
+
+<RawSnippet>
+  <style>
+    {`
+  .take2.container {
+    position: relative;
+  }
+  .take2 .layer1 {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    max-height: 100%;
+    aspect-ratio: 1;
+  }
+`}
+  </style>
+  <div>
+    <label for="w2">Width:</label>
+    <input id="w2" type="range" min="120" max="600" value="200"></input>
+    <label for="h2">Height:</label>
+    <input id="h2" type="range" min="120" max="600" value="200"></input>
+  </div>
+  <div id="c2" class="container take2">
+    <div class="layer1"></div>
+  </div>
+  <script>{`
+  register("#w2", "#c2", "width");
+  register("#h2", "#c2", "height");
+`}</script>
+</RawSnippet>
+
+To me, it's a bit more magical how this works. This is what I _think_ is happening:
+
+1. `position: absolute; inset: 0` inside a `position: relative` sets the child
+   container's width and height to be that of the parent
+   - but not the `width` and `height` properties directly! those are both still
+     `auto` so it can participate in `aspect-ratio` resolution.
+1. `aspect-ratio: 1` is applied, defaulting to setting height based on width
+1. `max-height: 100%` is applied, clipping height
+1. `aspect-ratio: 1` is applied again, this time setting width based on height,
+   because width is still `auto`
+
+This explanation checks out with all my previous ones: some sort of
+"`auto`-resolution loop" happens, and we never saw it because earlier, one of
+the `width`/`height` was non-`auto`. It also now makes sense why this works in
+all browsers, because the order of `aspect-ratio`/`max-height` no longer
+matters; `aspect-ratio` gets applied twice anyways.
+
+What `margin: auto` does then, is center the div in both axes (and in Safari's
+case, make it so the vertical margin can no longer be negative, because of
+course Safari is still special). You can pin the container to a given side by
+setting `margin-<side>: 0` afterwards.
+
+Phew!! Box sizing is hard, man.
+
+[^1]:
+    There's an even harder variant of this problem that I had for
+    [https://ro.am/howard/](https://ro.am/howard/): you have an arbitrary-sized
+    parent container, and you want the child to overflow the parent in only one
+    dimension with a fixed aspect ratio, but not just use [`object-fit:
+cover`](https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit) on an image
+    because there are elements that need to be positioned relative to that image. I
+    won't go into it here, you can read that page's source if you'd like tho :)

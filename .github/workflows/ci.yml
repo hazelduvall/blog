@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+# Automatically cancel in-progress actions on the same branch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name == 'pull_request_target' && github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Check for type issues
+    runs-on: ubuntu-latest
+    env:
+      FORCE_COLOR: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Install Tools & Dependencies
+        uses: ./.github/actions/install
+
+      - name: generate astro types
+        run: pnpm astro sync
+        shell: bash
+
+      - name: Run Check
+        run: pnpm check
+  eslint:
+    name: Check for code issues with ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Install Tools & Dependencies
+        uses: ./.github/actions/install
+
+      - name: Generate Astro Types
+        run: npx astro sync
+        shell: bash
+
+      - name: Run Check
+        run: pnpm lint:eslint

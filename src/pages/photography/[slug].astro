@@ -1,0 +1,25 @@
+---
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import { getPhotography } from "../../data/photography";
+import { render } from "astro:content";
+import Photography from "../../layouts/Photography.astro";
+
+export const getStaticPaths = (async () => {
+  const pages = await getPhotography();
+  return pages.map((page) => ({
+    params: {
+      slug: page.id,
+    },
+    props: page,
+  }));
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { entry, title, description } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<Photography frontmatter={{ title, description }}>
+  <Content />
+</Photography>

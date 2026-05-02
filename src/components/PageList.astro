@@ -1,0 +1,17 @@
+---
+import type { PageListProps } from "../models/PageList";
+
+type Props = PageListProps;
+
+const { pages } = Astro.props;
+---
+
+<ul>
+  {
+    pages.map((page) => (
+      <li>
+        <a href={page.url}>{page.title}</a>
+      </li>
+    ))
+  }
+</ul>

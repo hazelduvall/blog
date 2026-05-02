@@ -1,0 +1,170 @@
+/* Color Scheme */
+:root {
+  --color-white: rgb(255, 255, 255);
+  --color-white700: rgba(255, 255, 255, 0.7);
+  --color-white300: rgba(255, 255, 255, 0.3);
+  --color-white100: rgba(255, 255, 255, 0.1);
+  --color-grey: rgb(34, 49, 63);
+  --color-grey700: rgba(34, 49, 63, 0.7);
+  --color-grey300: rgba(34, 49, 63, 0.3);
+  --color-grey100: rgba(34, 49, 63, 0.1);
+  --color-off-white: rgb(233, 242, 249);
+  --color-light-grey: rgb(241, 241, 241);
+  --color-cyan: rgb(85, 195, 220);
+  --color-blue: rgb(3, 102, 214);
+  --color-orange: rgb(235, 133, 34);
+  --color-dark-orange: rgb(158, 79, 0);
+  --color-light-orange: rgb(255, 183, 113);
+  --color-green: rgb(103, 171, 107);
+}
+
+/* Background Color */
+body {
+  background-color: var(--color-off-white);
+}
+
+/* Sidebar Background Color */
+.sidebar,
+.site-header {
+  background-color: var(--color-cyan);
+}
+
+/* Box Background Color */
+.post-navigation,
+.site-footer,
+.hentry {
+  background-color: var(--color-white);
+}
+
+/* Box Background Color */
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  color: var(--color-white);
+}
+
+/* Main Text Color */
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  background-color: var(--color-grey);
+}
+
+/* Main Text Color */
+body,
+blockquote cite,
+blockquote small {
+  color: var(--color-grey);
+}
+
+/* Link Color */
+a {
+  color: var(--color-blue);
+}
+
+nav a {
+  color: var(--color-white);
+}
+
+.post-navigation a .post-title {
+  color: var(--color-grey);
+}
+
+.post-navigation a:hover,
+.post-navigation a:focus {
+  text-decoration: none;
+}
+
+/* Link Underline Color */
+.entry-content a {
+  border-color: var(--color-blue);
+}
+
+/* Secondary Text Color */
+blockquote,
+a:hover,
+a:focus,
+.post-navigation .meta-nav,
+.post-navigation a:hover .post-title,
+.post-navigation a:focus .post-title,
+.post-title-end {
+  color: var(--color-grey700);
+}
+
+blockquote {
+  border-color: var(--color-grey700);
+}
+
+hr {
+  background-color: var(--color-grey100);
+}
+
+pre,
+abbr[title],
+input,
+textarea,
+.post-navigation,
+.post-navigation div + div,
+.site-footer {
+  border-color: var(--color-grey100);
+}
+
+table,
+th,
+td {
+  border-color: var(--color-grey100);
+}
+
+th,
+tr:nth-child(even) {
+  background-color: var(--color-light-grey);
+}
+
+/* Highlight color */
+mark,
+ins {
+  background-color: var(--color-cyan);
+}
+
+/* inline code color */
+code {
+  color: var(--color-dark-orange);
+  background-color: var(--color-grey100);
+  padding: 0 0.1em;
+}
+
+pre code {
+  color: inherit;
+  background-color: inherit;
+  padding: initial;
+}
+
+/* Sidebar Link Color */
+.branding-title a,
+.branding-subtitle {
+  color: var(--color-white);
+}
+
+/* Sidebar Text Color */
+.branding-title a:hover,
+.branding-title a:focus {
+  color: var(--color-white700);
+}
+
+/* Sidebar Border Focus Color */
+.branding-title a {
+  outline-color: var(--color-white);
+}
+
+@media screen and (min-width: 59.6875em) {
+  /* Make sure its transparent on desktop */
+  .site-header {
+    background-color: transparent;
+  }
+
+  .sidebar a:focus {
+    outline-color: var(--color-white);
+  }
+}

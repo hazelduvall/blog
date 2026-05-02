@@ -1,0 +1,39 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getPostsByTag } from "../../../data/tags";
+import type { TagPageProps } from "../../../models/TagPage";
+import Page from "../../../layouts/Page.astro";
+import PostList from "../../../components/PostList.astro";
+
+type Props = TagPageProps;
+
+export const getStaticPaths = (async () => {
+  const postsByTag = await getPostsByTag();
+
+  return [...postsByTag.entries()].map(([tag, posts]) => {
+    const props: TagPageProps = {
+      tag,
+      frontmatter: {
+        title: `Post tagged "${tag}"`,
+        description: `All the posts I've tagged "${tag}"`,
+      },
+      posts: posts.map((post) => post.current).reverse(),
+      inList: true,
+      previous: {
+      url: "/blog/tags.html",
+        title: "All Tags",
+      },
+    };
+    return {
+      params: { tag },
+      props: { ...props },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+const props = Astro.props;
+---
+
+<Page {...props}>
+  <PostList {...props} />
+</Page>

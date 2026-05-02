@@ -1,0 +1,96 @@
+---
+import type { PostProps } from "../models/Post";
+import Default from "./Default.astro";
+import { dateString } from "../date";
+
+type Props = PostProps;
+
+const {
+  current: { date, tags },
+  previous,
+  next,
+  ...props
+} = Astro.props;
+---
+
+<Default {...props}>
+  <Fragment slot="head">
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Hazel Duvall's Blog"
+      href="https://www.hazelduvall.dev/blog/rss.xml"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+      integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV"
+      crossorigin="anonymous"
+    />
+  </Fragment>
+
+  <article class="post type-post hentry">
+    <section class="entry-header">
+      <h1 class="entry-title">{props.frontmatter.title}</h1>
+      <div class="entry-info">
+        Posted on {dateString(date)}
+      </div>
+      {
+        tags && (
+          <div class="entry-info">
+            Tags:{" "}
+            {tags.map((tag) => (
+              <a href={`/blog/tags/${tag}.html`}>{tag}</a>
+            ))}
+          </div>
+        )
+      }
+    </section>
+    <section class="entry-content"><slot /></section>
+  </article>
+  <nav class="navigation post-navigation">
+    <h2 class="screen-reader-text">Post navigation</h2>
+    <div class="nav-links">
+      <div class="nav-next">
+        {
+          next ? (
+            <a href={next.url} rel="next">
+              <span class="meta-nav" aria-hidden="true">
+                Next - {dateString(next.date)}
+              </span>
+              <span class="screen-reader-text">Next post:</span>
+              <span class="post-title">{next.title}</span>
+            </a>
+          ) : (
+            <span class="post-end">
+              <span class="meta-nav" aria-hidden="true">
+                Next
+              </span>
+              <span class="post-title-end">No Next Post</span>
+            </span>
+          )
+        }
+      </div>
+      <div class="nav-previous">
+        {
+          previous ? (
+            <a href={previous.url} rel="prev">
+              <span class="meta-nav" aria-hidden="true">
+                Previous - {dateString(previous.date)}
+              </span>
+              <span class="screen-reader-text">Previous post:</span>
+              <span class="post-title">{previous.title}</span>
+            </a>
+          ) : (
+            <span class="post-end">
+              <span class="meta-nav" aria-hidden="true">
+                Previous
+              </span>
+              <span class="post-title-end">No Previous Post</span>
+            </span>
+          )
+        }
+      </div>
+    </div>
+  </nav>
+</Default>

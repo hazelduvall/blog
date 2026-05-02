@@ -1,0 +1,24 @@
+---
+import type { PairedImages as PairedImagesProps } from "../models/ImageList";
+import Figure from "./Figure.astro";
+import Photograph from "./Photograph.astro";
+
+interface Props extends PairedImagesProps {
+  dir: string;
+}
+
+const { images, dir, ...details } = Astro.props;
+---
+
+<Figure {...details}>
+  <div>
+    {images.map((image) => <Photograph {image} {dir} />)}
+  </div>
+</Figure>
+
+<style>
+  div {
+    display: flex;
+    align-items: stretch;
+  }
+</style>

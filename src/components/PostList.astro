@@ -1,0 +1,18 @@
+---
+import { dateString } from "../date";
+import type { PostListProps } from "../models/PostList";
+
+type Props = PostListProps;
+
+const { posts } = Astro.props;
+---
+
+<ul>
+  {
+    posts.map((post) => (
+      <li>
+        <a href={post.url}>{post.title}</a> - {dateString(post.date)}
+      </li>
+    ))
+  }
+</ul>

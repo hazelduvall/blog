@@ -1,0 +1,52 @@
+---
+import Default from "./Default.astro";
+import type { PageProps } from "../models/Page.js";
+
+type Props = PageProps;
+
+const { inList, previous, next, frontmatter } = Astro.props;
+---
+
+<Default {...Astro.props}>
+  <Fragment slot="head">
+    <slot name="head" />
+  </Fragment>
+
+  <article class="page type-page hentry">
+    <section class="entry-header">
+      <h1 class="entry-title">{frontmatter.title}</h1>
+    </section>
+    <section class="entry-content"><slot /></section>
+  </article>
+  {
+    inList && (
+      <nav class="navigation post-navigation">
+        <h2 class="screen-reader-text">Post navigation</h2>
+        <div class="nav-links">
+          {previous && (
+            <div class="nav-previous">
+              <a href={previous.url} rel="prev">
+                <span class="meta-nav" aria-hidden="true">
+                  Previous
+                </span>
+                <span class="screen-reader-text">Previous page:</span>
+                <span class="post-title">{previous.title}</span>
+              </a>
+            </div>
+          )}
+          {next && (
+            <div class="nav-next">
+              <a href={next.url} rel="next">
+                <span class="meta-nav" aria-hidden="true">
+                  Next
+                </span>
+                <span class="screen-reader-text">Next page:</span>
+                <span class="post-title">{next.title}</span>
+              </a>
+            </div>
+          )}
+        </div>
+      </nav>
+    )
+  }
+</Default>

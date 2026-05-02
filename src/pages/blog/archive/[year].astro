@@ -1,0 +1,46 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getPostsByYear } from "../../../data/years";
+import type { ArchivePageProps } from "../../../models/ArchivePage";
+import PostList from "../../../components/PostList.astro";
+import Page from "../../../layouts/Page.astro";
+
+type Props = ArchivePageProps;
+
+export const getStaticPaths = (async () => {
+  const postsByYear = await getPostsByYear();
+
+  return [...postsByYear.entries()].map(([year, posts]) => {
+    const props: ArchivePageProps = {
+      year,
+      frontmatter: {
+        title: `${year}`,
+        description: `All the posts I've written in ${year}`,
+      },
+      posts: posts.map((post) => post.current).reverse(),
+      inList: true,
+      previous: {
+        url: "/blog/archive.html",
+        title: "Main Archive",
+      },
+    };
+    return {
+      params: { year },
+      props: { ...props },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+const { year, ...props } = Astro.props;
+---
+
+<Page {...props}>
+  <p>Here you can find all my previous posts from {year}.</p>
+  <p>
+    If you would like to look at posts by tags, go to <a href="/blog/tags.html"
+      >Tags</a
+    >. Otherwise, select a post from the list below:
+  </p>
+
+  <PostList {...props} />
+</Page>

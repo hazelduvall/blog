@@ -1,0 +1,19 @@
+---
+import { Code } from "astro/components";
+import rehypeFormat from "rehype-format";
+import rehyperParse from "rehype-parse";
+import rehypeStringify from "rehype-stringify";
+import { unified } from "unified";
+
+const html = await Astro.slots.render("default");
+const prettyHtml = String(
+  await unified()
+    .use(rehyperParse, { fragment: true })
+    .use(rehypeFormat)
+    .use(rehypeStringify)
+    .process(html),
+).trim();
+---
+
+<Code code={prettyHtml} lang="html" />
+<Fragment set:html={html} />

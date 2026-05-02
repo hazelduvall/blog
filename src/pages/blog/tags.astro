@@ -1,0 +1,23 @@
+---
+import PageList from "../../components/PageList.astro";
+import { getPostsByTag } from "../../data/tags";
+import Page from "../../layouts/Page.astro";
+import type { Page as PageType } from "../../models/Page";
+
+const title = "Tags";
+const description =
+  "All the tags I've tagged posts with. Useful for finding posts on specific topics.";
+
+const postsByTag = await getPostsByTag();
+const pages = [...postsByTag.keys()].sort().map((tag) => {
+  const page: PageType = {
+    url: `/blog/tags/${tag}.html`,
+    title: `${tag}`,
+  };
+  return page;
+});
+---
+
+<Page frontmatter={{ title, description }}>
+  <PageList {pages} />
+</Page>

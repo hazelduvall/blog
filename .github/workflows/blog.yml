@@ -1,0 +1,51 @@
+name: Build Astro, deploy to S3
+# Trigger this on every push to main that would change astro files
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/blog.yml"
+      - "astro.config.mjs"
+      - "package-lock.json"
+      - "package.json"
+      - "postcss.config.cjs"
+      - "src/**"
+      - "public/**"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Install Tools & Dependencies
+        uses: ./.github/actions/install
+
+      - name: Restore Astro Cache
+        uses: actions/cache@v4
+        with:
+          path: .astro-cache
+          key: blog-astro-cache-${{ hashFiles('src/**/*.png', 'src/**/*.jpg', 'src/**/*.md', 'src/**/*.mdx') }}
+          restore-keys: |
+            blog-astro-cache-
+
+      - name: Build Astro
+        run: pnpm build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Deploy to S3
+        run: aws s3 sync --delete ./dist/ s3://${{ secrets.AWS_S3_BUCKET }}
+      - name: Create CloudFront invalidation
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION }} --paths "/blog/*" "/photography/*" "/_astro/*" "/about.html" "/contact.html" "/friends.html" "/index.html" "/photography.html" "/privacy-policy.html"

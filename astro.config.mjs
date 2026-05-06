@@ -21,6 +21,9 @@ export default defineConfig({
       },
     }),
   ],
+  redirects: {
+    "/rss.xml": "/blog/rss.xml",
+  },
   markdown: {
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeKatex],

@@ -1,9 +1,11 @@
-import { z } from "astro:content";
+import { z } from "astro/zod";
 import { ImageDetails, ImageWithoutDetails } from "./Image";
 
 /** Show a single image */
-export const BasicImage = ImageDetails.merge(ImageWithoutDetails).extend({
-  layout: z.undefined(),
+export const BasicImage = z.object({
+  ...ImageDetails.shape,
+  ...ImageWithoutDetails.shape,
+  layout: z.undefined().optional(),
 });
 export type BasicImage = z.infer<typeof BasicImage>;
 

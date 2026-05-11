@@ -25,7 +25,7 @@ export const getStaticPaths = (async () => {
       },
     };
     return {
-      params: { year },
+      params: { year: String(year) },
       props: { ...props },
     };
   });

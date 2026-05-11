@@ -6,7 +6,7 @@ on:
     paths:
       - ".github/workflows/blog.yml"
       - "astro.config.mjs"
-      - "package-lock.json"
+      - "pnpm-lock.yaml"
       - "package.json"
       - "postcss.config.cjs"
       - "src/**"
@@ -32,7 +32,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .astro-cache
-          key: blog-astro-cache-${{ hashFiles('src/**/*.png', 'src/**/*.jpg', 'src/**/*.md', 'src/**/*.mdx') }}
+          key: blog-astro-cache-${{ hashFiles('pnpm-lock.yaml', 'src/**/*.png', 'src/**/*.jpg', 'src/**/*.md', 'src/**/*.mdx') }}
           restore-keys: |
             blog-astro-cache-
 

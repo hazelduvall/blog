@@ -177,8 +177,8 @@ inner.scrollHeight=${inner.scrollHeight} inner.clientHeight=${inner.clientHeight
 
 If the bug occurs, `outer.scrollHeight` will be `1502`, not matching any of the other values displayed, which are all `602`. Because I read the spec, I am confident in calling this a bug, even though both Chrome and Firefox seem to have the same behavior[^1]:
 
-| Chrome                                                                     | Firefox                                                                      | Safari                                                                            |
-| -------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| Chrome                                                                              | Firefox                                                                               | Safari                                                                                     |
+| ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
 | ![repros in Chrome](https://www.hazelduvall.dev/static/2024-11-19/repro-chrome.png) | ![repros in Firefox](https://www.hazelduvall.dev/static/2024-11-19/repro-firefox.png) | ![doesn't repro in Safari](https://www.hazelduvall.dev/static/2024-11-19/repro-safari.png) |
 
 I am also very confident in calling it a bug because removing the `will-change: transform;` property from `#outer` causes the bug to go away on both Chrome and Firefox[^2]. Additionally, on Chrome only, doing any of the following will also cause the bug to go away:

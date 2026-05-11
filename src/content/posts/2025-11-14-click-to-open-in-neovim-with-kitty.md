@@ -3,11 +3,12 @@ title: Click-To-Open In Neovim With Kitty
 description: An overly detailed explanation of how I copied a very basic feature from VSCode into my bespoke terminal setup
 tags: programming
 ---
+
 Recently, I saw my coworker using VSCode, and they had this amazing feature where they could:
 
-+ Run ripgrep in the command pane
-+ Click on a filename it outputted
-+ To immediately open it in a new tab in the editor pane
+- Run ripgrep in the command pane
+- Click on a filename it outputted
+- To immediately open it in a new tab in the editor pane
 
 This, to me, was magical. However, I thought it out-of-reach for a lowly terminal user like myself, until I saw what [jyn was able to do with their terminal](https://jyn.dev/how-i-use-my-terminal/). This inspired me to create my own customized setup, which I shall now explain in excruciating detail.
 
@@ -46,7 +47,7 @@ action launch --type=window --cwd=current -- zsh -c "source ~/.zshrc; nvim -- $F
 
 Then, any time you use `rg` or any of the other hyperlinked commands, all relevant filenames can be Ctrl+Shift+Left-Click-ed to open them in a new window inside the current Kitty tab. `protocol file` tells Kitty "any link starting with `file://`, use the following action", and `action launch` tells Kitty exactly how to launch our editor.
 
-You may be wondering, "why not just use `$EDITOR -- $FILE_PATH`, why is `$SHELL` involved at all?" And that's a great question. See, there's a lot of stuff going on in my `.zshrc`, from  [homebrew](https://brew.sh/)/[nix-darwin](https://github.com/nix-darwin/nix-darwin) globally installed packages, to per-directory workspaces made with  [direnv](https://direnv.net/)/[mise-en-place](https://mise.jdx.dev/).
+You may be wondering, "why not just use `$EDITOR -- $FILE_PATH`, why is `$SHELL` involved at all?" And that's a great question. See, there's a lot of stuff going on in my `.zshrc`, from [homebrew](https://brew.sh/)/[nix-darwin](https://github.com/nix-darwin/nix-darwin) globally installed packages, to per-directory workspaces made with [direnv](https://direnv.net/)/[mise-en-place](https://mise.jdx.dev/).
 
 Needless to say, my system is pretty bare without its `$PATH` filled to the brim with all these goodies. In fact, many of my Neovim plugins require it: I need `rg` & `fd` for [snacks.nvim](https://github.com/folke/snacks.nvim), language servers for [blink.cmp](https://github.com/Saghen/blink.cmp), `git` for [fugitive.vim](https://github.com/tpope/vim-fugitive), y'know, the works. However (for myriad reasons beyond the scope of this post), when launching a new window, Kitty isn't _quite_ smart enough to copy environment variables like `$PATH` from the currently active window[^env]. So, we just have to re-compute our `$PATH` before launching our editor. The reason I do `-c "source ~/.zshrc"` instead of `-i` is for speed; launching zsh first means there will be a brief flash of shell before the editor launches, and the former approach seems to minimize that flash.
 
@@ -88,6 +89,7 @@ fi
 ```
 
 There are comments inline explaining most of it, but to summarize:
+
 1. Use a unique-per-tab ID to construct a path inside a directory for Neovim to listen on
 2. If such a path doesn't already exist, starts Neovim listening on that path
 3. If such a path _does_ exist, only connect to it when a special command-line flag is given.
@@ -135,12 +137,12 @@ For performance, this uses some zsh-isms to check if the variable hasn't been de
 
 ## Conclusion
 
-
 These instructions have been tailored for the combination of Kitty + zsh + Neovim, but I'm fairly confident they can be adapted for most other shells/editors running in Kitty too. Not too sure about other terminals though, you might have a harder time scripting the mouse click than in Kitty. I do also recommend checking out [jyn's original post](https://jyn.dev/how-i-use-my-terminal/) for further inspiration on terminal-agnostic approaches, doing the scripting inside `tmux` instead perhaps. Though whatever you end up doing, I highly recommend writing some of it yourself, because it is a very good learning experience[^experience].
 
 And that, my friends, is all I have for you today. Take care & stay frosty 👍
 
-
 [^eza]: Though maybe there's hope with this [latest PR](https://github.com/eza-community/eza/pull/1664)...
+
 [^env]: Trust me, I tried _hard_. There is sort of a way to copy environments from existing windows using a [`kitten @ launch`](https://sw.kovidgoyal.net/kitty/remote-control/#cmdoption-kitten-launch-copy-env), but it didn't work for launching commands in new windows for whatever reason. The next-best thing is to recreate the environment that I actually care about from scratch.
+
 [^experience]: Use of time, however? Who's to say :)

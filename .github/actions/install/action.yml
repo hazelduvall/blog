@@ -3,10 +3,10 @@ name: Install Tools & Dependencies
 runs:
   using: composite
   steps:
-    - uses: pnpm/action-setup@v4
+    - uses: pnpm/action-setup@v6
       name: Install pnpm
 
-    - uses: actions/setup-node@v6
+    - uses: actions/setup-node@v7
       name: Install Node.js
       with:
         node-version: 24

@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="Description" content="ALIVE ⁂ AWAKE" />
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon" />
+
+    <title>syntacticsugarglider</title>
+
+    <script type="text/javascript">
+      const SAMPLE_RATIO = 0.125;
+      window.addEventListener("load", function () {
+        const canvas = document.querySelector("canvas");
+        let view = canvas.getBoundingClientRect();
+        let mpos = { x: 0.5, y: 0.5 };
+        canvas.width = view.width * SAMPLE_RATIO;
+        canvas.height = view.height * SAMPLE_RATIO;
+        const gl = canvas.getContext("webgl");
+        if (gl === null) {
+          alert("Unable to initialize WebGL. Your browser may not support it.");
+          return;
+        }
+
+        gl.clearColor(0.0, 0.0, 0.0, 0.0);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+
+        fetch("frag.glsl")
+          .then(function (response) {
+            return response.text();
+          })
+          .then(function (shader) {
+            shader = shader.replace(
+              "!factor",
+              ((Math.random() - 0.5) * 20).toFixed(3),
+            );
+            const frag = gl.createShader(gl.FRAGMENT_SHADER);
+            gl.shaderSource(frag, shader);
+            gl.compileShader(frag);
+            if (!gl.getShaderParameter(frag, gl.COMPILE_STATUS)) {
+              alert(gl.getShaderInfoLog(frag));
+              return null;
+            }
+            const vert = gl.createShader(gl.VERTEX_SHADER);
+            gl.shaderSource(
+              vert,
+              `#version 100
+                        attribute vec4 aVertexPosition;
+                        void main() {
+                            gl_Position = aVertexPosition;
+                        }
+                    `,
+            );
+            gl.compileShader(vert);
+            if (!gl.getShaderParameter(vert, gl.COMPILE_STATUS)) {
+              alert(gl.getShaderInfoLog(vert));
+              return null;
+            }
+            const program = gl.createProgram();
+            gl.attachShader(program, vert);
+            gl.attachShader(program, frag);
+            gl.linkProgram(program);
+            const vertices = new Float32Array([
+              1, -1, 0, 1, 1, 0, -1, -1, 0, -1, 1, 0,
+            ]);
+            const vbo = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
+            gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+            let loc = gl.getAttribLocation(program, "aVertexPosition");
+            let res = gl.getUniformLocation(program, "res");
+            let tloc = gl.getUniformLocation(program, "time");
+            let mloc = gl.getUniformLocation(program, "mpos");
+            gl.vertexAttribPointer(loc, 3, gl.FLOAT, false, 0, 0);
+            gl.enableVertexAttribArray(loc);
+
+            window.addEventListener("resize", () => {
+              view = canvas.getBoundingClientRect();
+              canvas.width = view.width * SAMPLE_RATIO;
+              canvas.height = view.height * SAMPLE_RATIO;
+            });
+
+            let rate = 0;
+
+            const draw = (delta) => {
+              gl.viewport(
+                0,
+                0,
+                view.width * SAMPLE_RATIO,
+                view.height * SAMPLE_RATIO,
+              );
+              gl.clear(gl.COLOR_BUFFER_BIT);
+              gl.useProgram(program);
+              gl.uniform2f(
+                res,
+                view.width * SAMPLE_RATIO,
+                view.height * SAMPLE_RATIO,
+              );
+              gl.uniform2f(mloc, mpos.x, mpos.y);
+              if (rate < 50) {
+                rate += 0.05;
+              }
+              gl.uniform1f(tloc, delta * rate);
+              gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+              window.requestAnimationFrame(draw);
+            };
+
+            window.requestAnimationFrame(draw);
+          });
+      });
+    </script>
+
+    <style>
+      @media only screen and (max-width: 400px) {
+        .bottom {
+          display: none !important;
+        }
+
+        .page {
+          transform: scale(0.8);
+          width: 268.38px !important;
+        }
+
+        h1 {
+          --font-size: 64px !important;
+        }
+
+        .smallnav {
+          display: initial !important;
+        }
+      }
+
+      @media only screen and (max-width: 460px) {
+        .page {
+          padding-left: 0px !important;
+          padding-right: 0px !important;
+          margin-left: auto;
+          width: 335.47px;
+          margin-right: auto;
+        }
+      }
+
+      @media only screen and (max-width: 600px) {
+        canvas {
+          display: none;
+        }
+
+        #imprint {
+          display: none;
+        }
+      }
+
+      @media only screen and (max-width: 800px) {
+        #currency {
+          display: none;
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      @import url("https://rsms.me/inter/inter.css");
+
+      .smallnav {
+        width: 100%;
+        transform: scale(0.8);
+        display: none;
+      }
+
+      .smallnav * :first-child {
+        margin-left: 0;
+      }
+
+      .navinner {
+        width: 268.38px;
+        margin-left: auto;
+        margin-top: 16px;
+        margin-right: auto;
+      }
+
+      html {
+        font-size: 16px;
+        line-height: 24px;
+        overflow: hidden;
+        letter-spacing: -0.006em;
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          Helvetica,
+          Arial,
+          sans-serif,
+          "Apple Color Emoji",
+          "Segoe UI Emoji",
+          "Segoe UI Symbol";
+        background-color: #feed01;
+
+        --cap-height: 0.7272727272727273;
+        --font-size: 16px;
+        --line-height: 1.5;
+      }
+
+      @supports (font-variation-settings: normal) {
+        html {
+          font-family:
+            "Inter var",
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            Roboto,
+            Helvetica,
+            Arial,
+            sans-serif,
+            "Apple Color Emoji",
+            "Segoe UI Emoji",
+            "Segoe UI Symbol";
+        }
+      }
+
+      body {
+        margin: 0;
+        user-select: none;
+      }
+
+      .noise {
+        background-image: url(noise512.png);
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-size: 256px;
+        opacity: 0.02;
+        pointer-events: none;
+      }
+
+      .grid {
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background-size: 8px 8px;
+        background-image:
+          linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.2) 0.5px,
+            transparent 0.5px
+          ),
+          linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.2) 0.5px,
+            transparent 0.5px
+          );
+        pointer-events: none;
+      }
+
+      .devgrid {
+        background-size: 16px 16px;
+        background-image:
+          linear-gradient(to right, red, transparent 0.5px),
+          linear-gradient(to bottom, red, transparent 0.5px);
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        height: 100%;
+      }
+
+      a {
+        text-transform: uppercase;
+        font-variant-caps: all-small-caps;
+        color: black;
+        opacity: 0.8;
+        margin-left: 16px;
+      }
+
+      a:hover {
+        opacity: 1;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      h1,
+      h2,
+      h4,
+      p,
+      blockquote {
+        font-size: var(--font-size);
+        line-height: calc(var(--font-size) * var(--line-height));
+        margin: 0;
+        padding-top: calc(
+          var(--font-size) * (var(--line-height) - var(--cap-height)) / 2
+        );
+        margin-bottom: calc(
+          -1 * var(--font-size) * (var(--line-height) - var(--cap-height)) / 2
+        );
+      }
+
+      h1 {
+        --font-size: 96px;
+        --line-height: 1.5;
+        font-weight: 500;
+        letter-spacing: -0.022em;
+      }
+
+      h2 {
+        --font-size: 60px;
+        --line-height: calc(80px / 60px);
+        font-weight: 500;
+        letter-spacing: -0.022em;
+      }
+
+      h4 {
+        --font-size: 32px;
+        --line-height: 1.5;
+        font-weight: bolder;
+        letter-spacing: -0.022em;
+      }
+
+      .page {
+        padding-left: 64px;
+        padding-right: 64px;
+        position: relative;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .bottom {
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19);
+        height: 40px;
+        box-sizing: content-box;
+        background: white;
+        border-top: 4px solid black;
+        padding-bottom: 1px;
+        width: 100%;
+        text-transform: uppercase;
+        font-variant-caps: all-small-caps;
+        position: fixed;
+        bottom: -40px;
+        margin-bottom: 40px;
+        font-weight: bolder;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #headings {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 32px;
+      }
+
+      #currency {
+        font-size: 256px;
+        line-height: calc(256px * var(--cap-height));
+      }
+
+      #imprint {
+        position: absolute;
+        right: 64px;
+        color: rgba(255, 255, 255, 0.2);
+        top: calc(98vh - 144px);
+      }
+
+      .content {
+        max-width: 300px;
+      }
+
+      #right {
+        float: right;
+        text-align: right;
+      }
+
+      .page:first-child p:not(:nth-child(3)) {
+        margin-top: 16px;
+      }
+
+      blockquote {
+        text-transform: uppercase;
+        font-variant-caps: all-small-caps;
+        max-width: 125px;
+        margin-inline-start: 32px;
+        margin-inline-end: 32px;
+        margin-top: 16px;
+      }
+
+      canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        margin-top: -1px;
+        height: 100vh;
+        z-index: -1;
+        image-rendering: pixelated;
+      }
+
+      a:last-child {
+        margin-right: 16px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+      <div class="grid"></div>
+
+      <canvas></canvas>
+
+      <div id="headings">
+        <div>
+          <h1>Caution!</h1>
+          <h4 id="warning">ALIVE ⁂ AWAKE</h4>
+        </div>
+        <div id="currency">⁂</div>
+      </div>
+
+      <p class="content">
+        AS/IS without warranty express or implied to extent inapplicable by law.
+        Decay products include novel systems. Improper use unlikely to result in
+        grave injury or death.
+      </p>
+
+      <p class="content">Please note:</p>
+      <blockquote>it must be so for it could be no other way</blockquote>
+      <p class="content">
+        Contains soy. Contains substances known to the state. Refrigerate after
+        opening.
+      </p>
+
+      <h1 id="imprint">syntacticsugarglider 🄯 2020</h1>
+    </div>
+
+    <div class="bottom">FEED ZERO ONE YES! YES! YES!</div>
+
+    <div class="noise"></div>
+  </body>
+</html>
